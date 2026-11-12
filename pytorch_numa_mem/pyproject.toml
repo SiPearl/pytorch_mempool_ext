@@ -1,0 +1,19 @@
+# Build without isolation, against the PyTorch already in the environment:
+#   uv pip install -e . --no-build-isolation
+# torch is not listed as a dependency, so that an install can never replace
+# the in-tree build that carries the allocator override.
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytorch_numa_mem"
+version = "0.1.0"
+description = "CPU tensors on chosen NUMA nodes for PyTorch, through libnuma_allocator.so"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
